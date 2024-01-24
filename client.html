@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js WebSocket Client</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{ message }}</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'WebSocket Client with Vue.js'
+            }
+        });
+    </script>
+
+    <script>
+        const socket = new WebSocket('ws://localhost:3000');
+
+        socket.addEventListener('open', (event) => {
+            console.log('WebSocket connection opened:', event);
+        });
+
+        socket.addEventListener('message', (event) => {
+            console.log('WebSocket message received:', event.data);
+            // Vue.jsデータを更新
+            app.message = event.data;
+        });
+
+        socket.addEventListener('close', (event) => {
+            console.log('WebSocket connection closed:', event);
+        });
+    </script>
+
+</body>
+</html>
